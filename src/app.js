@@ -22,13 +22,6 @@ const router = express.Router()
 router.get('/', (req, res) => {
     res.send('<h2>Welcome to Task App!</h2>')
 })
-router.get('/a', (req, res) => {
-    res.json({message: 'Welcome to Task App A!' })
-})
-router.get('/b', (req, res) => {
-    res.json({message: 'Welcome to Task App B!' })
-})
-
 app.use(express.json())
 
 // app.use(userRouter)
@@ -38,10 +31,10 @@ app.use('/.netlify/functions/app', router)
 // app.use('/.netlify/functions/app', userRouter)
 // app.use('/.netlify/functions/app', taskRouter)
 
-// if (process.env.NODE_ENV === 'local') {
-//     app.listen(process.env.PORT, () => {
-//         console.log('Server is up on port ' + process.env.PORT)
-//     })
-// }
+if (process.env.NODE_ENV === 'local') {
+    app.listen(process.env.PORT, () => {
+        console.log('Server is up on port ' + process.env.PORT)
+    })
+}
 
 module.exports.handler = serverless(app)
