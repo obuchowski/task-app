@@ -1,4 +1,4 @@
-require('saslprep')
+const saslprerp = require('saslprep')
 const mongoose = require('mongoose');
 
 const taskSchema = new mongoose.Schema({
