@@ -1,10 +1,18 @@
 const express = require('express')
 const serverless = require('serverless-http')
-require('./db/mongoose')
 const userRouter = require('./routers/user')
 const taskRouter = require('./routers/task')
 
 const app = express()
+
+app.use((req, res, next) => {
+    const mongoose = require('./db/mongoose')
+    res.on('finish', () => {
+        mongoose.connection.close()
+    });
+    next();
+});
+
 
 app.use(express.json())
 app.get('/', (req, res) => {
