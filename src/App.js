@@ -17,7 +17,9 @@ app.use((req, res, next) => {
 app.use(express.json())
 app.get('/', (req, res) => {
     res.send('<h2>Welcome to Task App!</h2>')
+    res.end()
 })
+
 app.use(userRouter)
 app.use(taskRouter)
 
