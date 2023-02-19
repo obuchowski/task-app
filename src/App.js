@@ -1,5 +1,5 @@
 const express = require('express')
-const serverless = require('serverless-http');
+const serverless = require('serverless-http')
 require('./db/mongoose')
 const userRouter = require('./routers/user')
 const taskRouter = require('./routers/task')
@@ -13,11 +13,13 @@ app.get('/', (req, res) => {
 app.use(userRouter)
 app.use(taskRouter)
 
+app.use('/.netlify/functions/app', userRouter)
+app.use('/.netlify/functions/app', taskRouter)
+
 if (process.env.NODE_ENV === 'local') {
     app.listen(process.env.PORT, () => {
         console.log('Server is up on port ' + process.env.PORT)
     })
-} else {
-    app.use('/.netlify/functions/app', app);
-    module.exports.handler = serverless(app);
 }
+
+module.exports.handler = serverless(app)
