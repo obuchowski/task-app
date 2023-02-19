@@ -24,10 +24,3 @@ module.exports = {
     sendWelcomeEmail,
     sendGoodbyeEmail
 }
-
-// sgMail.send({
-//     to: 'evgeni@obukhovski.com',
-//     from: 'evgeni@obukhovski.com',
-//     subject: 'send from app',
-//     text: 'Hello World!'
-// })
