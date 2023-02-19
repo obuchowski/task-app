@@ -1,7 +1,7 @@
 const express = require('express')
 const serverless = require('serverless-http')
-const userRouter = require('./routers/user')
-const taskRouter = require('./routers/task')
+// const userRouter = require('./routers/user')
+// const taskRouter = require('./routers/task')
 const mongoose = require("mongoose")
 mongoose.set('strictQuery', false)
 
@@ -9,7 +9,7 @@ const app = express()
 const router = express.Router()
 
 app.use((req, res, next) => {
-    mongoose.connect(process.env.MONGODB_URI, {
+    mongoose.connect('mongodb://127.0.0.1:27017/task-manager-api', {
         useNewUrlParser: true
     })
     res.on('finish', () => {
@@ -24,12 +24,12 @@ router.get('/', (req, res) => {
 })
 app.use(express.json())
 
-app.use(userRouter)
-app.use(taskRouter)
+// app.use(userRouter)
+// app.use(taskRouter)
 
 app.use('/.netlify/functions/app', router)
-app.use('/.netlify/functions/app', userRouter)
-app.use('/.netlify/functions/app', taskRouter)
+// app.use('/.netlify/functions/app', userRouter)
+// app.use('/.netlify/functions/app', taskRouter)
 
 if (process.env.NODE_ENV === 'local') {
     app.listen(process.env.PORT, () => {
