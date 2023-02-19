@@ -2,7 +2,6 @@ const express = require('express')
 const serverless = require('serverless-http')
 const userRouter = require('./routers/user')
 const taskRouter = require('./routers/task')
-const saslprep = require('saslprep')
 const mongoose = require('mongoose')
 mongoose.set('useNewUrlParser', true)
     .set('useUnifiedTopology', true)
@@ -14,7 +13,7 @@ const app = express()
 const router = express.Router()
 
 app.use((req, res, next) => {
-    mongoose.connect(saslprep(process.env.MONGODB_URI))
+    mongoose.connect(process.env.MONGODB_URI)
     res.on('finish', () => {
         mongoose.connection.close()
     });
