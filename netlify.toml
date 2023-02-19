@@ -4,9 +4,6 @@
 [context.production]
   command = "npm run start"
 
-[context.deploy-preview]
-  command = "npm run start"
-
 [context.branch-deploy]
   command = "npm run start"
 
