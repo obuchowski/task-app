@@ -13,12 +13,11 @@ app.get('/', (req, res) => {
 app.use(userRouter)
 app.use(taskRouter)
 
-if (process.env.NODE_ENV === 'production') {
-    app.use('/.netlify/functions/app', app);
-    module.exports.handler = serverless(app);
-
-} else {
+if (process.env.NODE_ENV === 'local') {
     app.listen(process.env.PORT, () => {
         console.log('Server is up on port ' + process.env.PORT)
     })
+} else {
+    app.use('/.netlify/functions/app', app);
+    module.exports.handler = serverless(app);
 }

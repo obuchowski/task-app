@@ -7,5 +7,3 @@
   command = "npm run start"
 [context.deploy-preview]
   command = "npm run start"
-[context.env]
-  NODE_ENV = "production"
