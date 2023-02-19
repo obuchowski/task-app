@@ -2,27 +2,32 @@ const express = require('express')
 const serverless = require('serverless-http')
 const userRouter = require('./routers/user')
 const taskRouter = require('./routers/task')
+const mongoose = require("mongoose")
+mongoose.set('strictQuery', false)
 
 const app = express()
+const router = express.Router()
 
 app.use((req, res, next) => {
-    const mongoose = require('./db/mongoose')
+    mongoose.connect(process.env.MONGODB_URI, {
+        useNewUrlParser: true
+    })
     res.on('finish', () => {
         mongoose.connection.close()
     });
     next();
 });
 
-
-app.use(express.json())
-app.get('/', (req, res) => {
+router.get('/', (req, res) => {
     res.send('<h2>Welcome to Task App!</h2>')
     res.end()
 })
+app.use(express.json())
 
 app.use(userRouter)
 app.use(taskRouter)
 
+app.use('/.netlify/functions/app', router)
 app.use('/.netlify/functions/app', userRouter)
 app.use('/.netlify/functions/app', taskRouter)
 
