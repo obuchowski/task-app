@@ -14,8 +14,16 @@ router.get('/tasks', auth, async (req, res) => {
         match.completed = req.query.completed === 'true'
     }
 
-    const parts = req.query.sort.split(':')
-    sort[parts[0]] = parts[1] === 'desc' ? -1 : 1
+    if (req.query.sort) {
+        if (req.query.sort.includes(':')) {
+            let parts = req.query.sort.split(':')
+            sort[parts[0]] = parts[1] === 'desc' ? -1 : 1
+        } else {
+            sort[req.query.sort] = 1
+        }
+
+
+    }
 
     try {
         // const tasks = await Task.find({ owner: req.user._id })
