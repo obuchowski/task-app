@@ -4,15 +4,16 @@ const userRouter = require('./routers/user')
 const taskRouter = require('./routers/task')
 const mongoose = require("mongoose")
 mongoose.set('useNewUrlParser', true)
-mongoose.set('strictQuery', false)
-mongoose.set('useFindAndModify', false)
-mongoose.set('useCreateIndex', true)
+    .set('useUnifiedTopology', true)
+    .set('strictQuery', false)
+    .set('useFindAndModify', false)
+    .set('useCreateIndex', true)
 
 const app = express()
 const router = express.Router()
 
 app.use((req, res, next) => {
-    mongoose.connect('mongodb://127.0.0.1:27017/task-manager-api')
+    mongoose.connect(process.env.MONGODB_URI)
     res.on('finish', () => {
         mongoose.connection.close()
     });
