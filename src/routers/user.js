@@ -1,5 +1,5 @@
 const express = require('express')
-// const sharp = require('sharp')
+const jimp = require('jimp');
 const User = require('../models/user')
 const auth = require('../middleware/auth')
 const { sendWelcomeEmail, sendGoodbyeEmail } = require('../emails/account')
@@ -17,16 +17,16 @@ router.post('/users/login', async (req, res) => {
 })
 
 router.post('/users/logout', auth, async (req, res) => {
-   try {
-       req.user.tokens = req.user.tokens.filter((token) => {
-           return token.token !== req.token
-       })
-       await req.user.save()
-       res.send()
+    try {
+        req.user.tokens = req.user.tokens.filter((token) => {
+            return token.token !== req.token
+        })
+        await req.user.save()
+        res.send()
 
-   } catch (e) {
-       res.status(500).send(e)
-   }
+    } catch (e) {
+        res.status(500).send(e)
+    }
 })
 
 router.post('/users/logoutAll', auth, async (req, res) => {
@@ -44,11 +44,11 @@ router.get('/users/me', auth, async (req, res) => {
 })
 
 router.post('/users/me/avatar', auth, avatar, async (req, res) => {
-    const buffer = req.file.buffer
-    // const buffer = await sharp(req.file.buffer)
-    //     .resize({ width: 250, height: 250})
-    //     .png()
-    //     .toBuffer()
+    const image = await jimp.read(req.file.buffer);
+    const buffer = await image
+        .cover(250, 250, jimp.RESIZE_BESTFIT)
+        .quality(70)
+        .getBufferAsync(jimp.MIME_JPEG);
     req.user.avatar = buffer
     await req.user.save()
     res.send()
@@ -69,7 +69,7 @@ router.get('/users/:id/avatar', async (req, res) => {
             throw new Error()
         }
 
-        res.set('Content-Type', 'image/png')
+        res.set('Content-Type', 'image/jpeg')
         res.send(user.avatar)
 
     } catch (e) {
