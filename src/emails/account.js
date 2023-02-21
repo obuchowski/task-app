@@ -21,7 +21,7 @@ const sendWelcomeEmail = (email, name) => {
         }
         transporter.sendMail(mailOptions)
     } catch (e) {
-        console.log(e)
+        console.log(e.message)
     }
 }
 
@@ -36,7 +36,7 @@ const sendGoodbyeEmail = (email, name) => {
         }
         transporter.sendMail(mailOptions)
     } catch (e) {
-        console.log(e)
+        console.log(e.message)
     }
 }
 

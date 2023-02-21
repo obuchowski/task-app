@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "netlify-lambda build src",
-    "serve:node": "env-cmd -f ./.env nodemon src/app.js",
+    "build": "netlify-lambda build functions",
+    "serve:node": "env-cmd -f ./.env nodemon src/index.js",
     "serve:lambda": "netlify-lambda serve functions --port=9010 --config ./webpack.config.js",
     "test": "env-cmd -f ./.env.test jest --watch"
   },
@@ -32,6 +32,7 @@
     "env-cmd": "*",
     "express": "^4.18.2",
     "jest": "^29.4.3",
-    "nodemon": "*"
+    "nodemon": "*",
+    "supertest": "^6.3.3"
   }
 }
