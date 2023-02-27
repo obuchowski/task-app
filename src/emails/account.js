@@ -11,6 +11,7 @@ const transporter = nodemailer.createTransport({
 })
 
 const sendWelcomeEmail = (email, name) => {
+    if (process.env.NODE_ENV === 'test') return console.log('Welcome email not sent in test mode.')
     try {
         const mailOptions = {
             from: '"Evgeni Obukhovski" <evgeni@obukhovski.com>',
@@ -26,6 +27,7 @@ const sendWelcomeEmail = (email, name) => {
 }
 
 const sendGoodbyeEmail = (email, name) => {
+    if (process.env.NODE_ENV === 'test') return console.log('Goodbye email not sent in test mode.')
     try {
         const mailOptions = {
             from: '"Evgeni Obukhovski" <evgeni@obukhovski.com>',
