@@ -3,3 +3,7 @@
   command = "npm run build"
   # functions build directory
   functions = "functions-build"
+
+[[edge_functions]]
+function = "firebase"
+path = "/firebase"

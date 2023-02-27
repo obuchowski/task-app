@@ -6,7 +6,7 @@
   "scripts": {
     "build": "netlify-lambda build functions",
     "serve:node": "env-cmd -f ./.env nodemon src/index.js",
-    "google": "env-cmd -f ./.env nodemon ./src/models/firebase/test.js",
+    "google": "env-cmd -f ./.env nodemon ./netlify/edge-functions/firebase/firebase.js",
     "serve:lambda": "netlify-lambda serve functions --port=9010 --config ./webpack.config.js",
     "test": "env-cmd -f ./.env.test jest --watch"
   },
