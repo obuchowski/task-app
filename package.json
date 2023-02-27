@@ -6,6 +6,7 @@
   "scripts": {
     "build": "netlify-lambda build functions",
     "serve:node": "env-cmd -f ./.env nodemon src/index.js",
+    "google": "env-cmd -f ./.env nodemon ./src/models/firebase/test.js",
     "serve:lambda": "netlify-lambda serve functions --port=9010 --config ./webpack.config.js",
     "test": "env-cmd -f ./.env.test jest --watch"
   },
@@ -16,6 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google-cloud/firestore": "^6.4.3",
     "bcryptjs": "*",
     "encoding": "*",
     "jimp": "*",
