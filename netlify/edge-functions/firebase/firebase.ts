@@ -31,9 +31,5 @@ export default async (request: Request, context: Context) => {
         data[doc.id] = doc.data();
     })
 
-    return new Response(JSON.stringify(data), {
-        headers: {
-            'content-type': 'application/json;charset=UTF-8',
-        }
-    })
+    return Response.json(data)
 }
