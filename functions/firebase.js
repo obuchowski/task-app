@@ -6,7 +6,7 @@ const handler = async function (event) {
         projectId: process.env.GOOGLE_APPLICATION,
         credentials: {
             client_email: process.env.GOOGLE_CLIENT_EMAIL,
-            private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n"),
+            private_key: process.env.GOOGLE_PRIVATE_KEY
         }
     })
     const tasksRef = firestore.collection('tasks'),
